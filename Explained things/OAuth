@@ -1,0 +1,16 @@
+"Kirjaudu sisään Microsoftilla" - painike on kaikille tuttu näky. käytät sitä kirjautuaksesi johonkin kolmannen osapuolen sovellukseen tai verkkosivustoon. Käyttäessäsi OAuthia annat kolmannelle osapuolelle oikeuksia tilillesi.
+ 
+Näillä oikeuksilla voidaan, lukea tai kirjoittaa sähköpostia, tiedostoja, osoitekirjaa. oletuksena Entra IDssä käyttäjävt voi rekesteröidä näitä sovelluksia. Tätä voidaan käyttään hyökkäysvektorina ympäristöön. Käyttäjälle lähetetään kalasteluviesti hyökkääjän hallussa olevaan OAuth nettisivuun, jolla pyydetään oikeudet tiliin ja mielivaltaiseen määrään oikeuksia tälle tilille.
+ 
+Tämä on erittäin ongelmallista, sillä hyökkääjä saa pysyvän pääsyn tiliin. Edes salasanan uusiminen ei poista sovellusten oikeuksia. Tätä voidaan myös hyödyntää pysyvän jalansijan saamiseksi ympäristöön, sillä jos hyökkääjä pääse tilillesi hän voi rekisteröidä omia sovelluksiian sille tilille.
+ 
+Voit ratkaista ongelman poistamalla Entra ID-asetuksista käyttäjien asetuksista oiekuden luoda sovelluksia ympäristöön. Sinun tulee myös käydä läpi ympäristössä jo olemassaolevat sovellukset. Hyvä työkalu verkkosovellusten valvontaan on Microsoft Defender for Cloud Apps -palvelu, joka tarjoaa työkaluja riskialttiiden OAuth-sovellusten havaitsemiseen, tutkimiseen. Ylläpitäjien tulisi seuloa pilvessä käytettävät sovellukset samalla tavalla kuin se tehdään perinteisessä ympäristössä. Harmittomalta näyttävä EvilC0rp-pdf-editor ei välttämättä olekkaan välttämättä se sovellus, mille haluat antaa oiekudet lukea ja kirjoittaa käyttäjäsin OneDriveen.
+ 
+
+
+
+
+
+
+--- LEikkaa SSO
+OAuth + SSO on hyvä suoja kalastusta vastaan, koska se vähentää käyttäjien tarvetta syöttää salasanojaan eri sovelluksiin. Kun käyttäjä kirjautuu kerran Entra ID:llä(_Miten tää tarkalleen toimii @joonas simolin, tai muu vois kommentoida_), hän voi käyttää muita sovelluksia ilman uudelleenkirjautumista. Tämä vähentää riskiä, että käyttäjä antaa salasanansa vahingossa hyökkääjän hallitsemalle sivustolle, joka näyttää aidolta sovellukselta. Lisäksi OAuth antaa käyttäjälle mahdollisuuden hallita, mitä oikeuksia hän antaa kolmansille osapuolille. Käyttäjä voi nähdä, mitä tietoja sovellus pyytää ja peruuttaa luvan milloin tahansa. Tämä lisää käyttäjän tietoturvaa ja luottamusta.
