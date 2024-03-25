@@ -21,6 +21,10 @@ EOF
     systemctl restart network
 }
 
+# Add sslverify=false to /etc/yum.conf
+echo "Adding sslverify=false to /etc/yum.conf..."
+echo "sslverify=false" | sudo tee -a /etc/yum.conf >/dev/null
+
 # Check ping
 echo "Pinging 8.8.8.8..."
 if ! check_ping; then
@@ -32,7 +36,7 @@ fi
 
 # Install required packages
 echo "Installing audit..."
-sudo yum install -y audit
+sudo yum install -y audit yum-utils > /dev/null
 
 echo "Updating curl..."
 sudo yum update -y curl
@@ -42,10 +46,14 @@ sudo systemctl start auditd
 sudo systemctl enable auditd
 sudo systemctl status auditd
 
-echo "Installing yum-utils..."
-sudo yum install -y yum-utils
-
 echo "Adding Microsoft repository..."
 sudo yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/7/prod.repo
 
-echo "Setup complete."
+echo "install mdapt"
+yum install mdatp -y
+
+# Remove sslverify=false from /etc/yum.conf after script execution
+echo "Removing sslverify=false from /etc/yum.conf..."
+sudo sed -i '/sslverify=false/d' /etc/yum.conf
+
+echo "Script execution complete."
